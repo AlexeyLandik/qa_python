@@ -21,8 +21,7 @@ class TestBooksCollector:
 
         # проверяем, что добавилось именно две
         # словарь books_rating, который нам возвращает метод get_books_rating, имеет длину 2
-        # assert len(collector.get_books_rating()) == 2  # закомментировал этот прекод, тк он был не рабочий
-        assert len(collector.books_genre) == 2
+        assert len(collector.get_books_genre()) == 2
 
     # напиши свои тесты ниже
     # чтобы тесты были независимыми в каждом из них создавай отдельный экземпляр класса BooksCollector()
@@ -33,7 +32,7 @@ class TestBooksCollector:
 
         collector.add_new_book('В этом названии книги 41символ.Тест длины')
 
-        assert len(collector.books_genre) == 0
+        assert len(collector.get_books_genre()) == 0
 
     # Тест №2. Одну и ту же книгу можно добавить только один раз
     def test_add_new_book_add_one_book_twice(self):
@@ -42,7 +41,7 @@ class TestBooksCollector:
         collector.add_new_book('Гордость и предубеждение и зомби')
         collector.add_new_book('Гордость и предубеждение и зомби')
 
-        assert len(collector.books_genre) == 1
+        assert len(collector.get_books_genre()) == 1
 
     # Тест №3. Жанр устанавливается только если книга есть в словаре и жанр в списке жанров
     @pytest.mark.parametrize(
@@ -60,7 +59,7 @@ class TestBooksCollector:
         collector.add_new_book(name)
         collector.set_book_genre(name, genre)
 
-        assert collector.books_genre[name] == genre
+        assert collector.get_book_genre(name) == genre
 
     # Тест №4. Получить жанр книги по имени. Имя и жанр есть в словаре books_genre
     @pytest.mark.parametrize(
@@ -127,7 +126,7 @@ class TestBooksCollector:
         collector.add_book_in_favorites('Гордость и предубеждение и зомби')
         collector.add_book_in_favorites('Что делать, если ваш кот хочет вас убить')
 
-        assert len(collector.favorites) == 2
+        assert len(collector.get_list_of_favorites_books()) == 2
 
     # Тест №9. Добавить две книги в избранное и удалить одну. ОР: Длина списка избранных == 1
     def test_delete_book_from_favorites_delete_one_of_two_books(self):
@@ -141,7 +140,7 @@ class TestBooksCollector:
 
         collector.delete_book_from_favorites('Что делать, если ваш кот хочет вас убить')
 
-        assert len(collector.favorites) == 1
+        assert len(collector.get_list_of_favorites_books()) == 1
 
     # Тест №10. Добавить в избранное две книги. Получить актуальный список
     def test_get_list_of_favorites_books_list_of_two_books(self):
